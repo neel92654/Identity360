@@ -1,0 +1,430 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TrustNexus | Identity360 Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e5eeff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "on-surface": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c4c6ce",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-background": "#0b1c30",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "outline": "#74777e",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#768dad",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#381d00",
+                        "tertiary": "#1a0b00",
+                        "secondary-container": "#316bf3",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-secondary-container": "#fefcff",
+                        "primary": "#000f22",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#d2e4ff",
+                        "on-surface-variant": "#43474d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#ae835a",
+                        "inverse-surface": "#213145",
+                        "primary-container": "#0a2540",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "secondary": "#0051d5",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b0c8eb",
+                        "background": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#dbe1ff",
+                        "on-primary-fixed-variant": "#314865"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "md": "24px",
+                        "base": "4px",
+                        "xl": "64px",
+                        "margin-mobile": "16px",
+                        "sm": "16px",
+                        "gutter": "20px",
+                        "lg": "40px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .trust-gauge-gradient {
+            background: conic-gradient(from 180deg at 50% 50%, #10b981 0deg, #10b981 306deg, #e5e7eb 306deg);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(.33); opacity: 0; }
+            80%, 100% { opacity: 0; }
+        }
+        
+        .pulse-active::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #10b981;
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        .signal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .signal-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<img alt="Identity360 Logo" class="h-10 w-10 object-contain" src="identity.png">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Identity360</span>
+</div>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="text-secondary font-bold border-b-2 border-secondary h-16 flex items-center" href="adminoversightdashboard.html">Trust Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 h-16 flex items-center" href="signalcollectionlayer.html">Signal Collection</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 h-16 flex items-center" href="adpativeauthentication.html">Device Trust</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 h-16 flex items-center" href="usertrustdashboard.html">Security Alerts</a>
+</nav>
+<div class="flex items-center gap-sm">
+<div class="hidden md:flex flex-col text-right mr-sm">
+<span class="font-label-md text-label-md text-primary">System Operator</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">ID: Trust-Alpha-9</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="hidden lg:flex flex-col h-[calc(100vh-64px)] w-72 bg-surface border-r border-outline-variant/20 py-md px-sm sticky top-16">
+<div class="flex flex-col gap-xs mb-lg">
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-lg font-bold p-xs translate-x-1 duration-200" href="adminoversightdashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Trust Dashboard</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-xs hover:bg-surface-container-high transition-all" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">dataset</span>
+<span class="font-label-md text-label-md">Signal Collection</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-xs hover:bg-surface-container-high transition-all" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Behavioral Analytics</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-xs hover:bg-surface-container-high transition-all" href="adpativeauthentication.html">
+<span class="material-symbols-outlined">phonelink_setup</span>
+<span class="font-label-md text-label-md">Device Trust</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-xs hover:bg-surface-container-high transition-all" href="adpativeauthentication.html">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Adaptive Auth</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-xs hover:bg-surface-container-high transition-all" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-md text-label-md">Security Alerts</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-xs hover:bg-surface-container-high transition-all" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Admin Control</span>
+</a>
+</div>
+<div class="mt-auto p-sm bg-surface-container-low rounded-xl border border-outline-variant/20">
+<div class="flex items-center gap-xs mb-xs">
+<div class="w-2 h-2 rounded-full bg-[#10b981] relative pulse-active"></div>
+<span class="font-label-sm text-label-sm text-[#10b981] font-bold">Vigilant State</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Continuous Identity Monitoring active across 4 nodes.</p>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 px-margin-mobile md:px-margin-desktop py-lg max-w-7xl mx-auto w-full pb-24 md:pb-lg">
+<!-- Hero Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch mb-lg">
+<!-- Trust Score Hero -->
+<div class="lg:col-span-7 glass-panel rounded-xl p-lg flex flex-col md:flex-row items-center gap-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 p-md">
+<span class="material-symbols-outlined text-outline-variant/30 text-6xl">verified_user</span>
+</div>
+<!-- Circular Gauge -->
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-secondary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="82.9" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-label-md text-display-lg font-black text-primary leading-none">85</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase">Trust Score</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-xs">Secure Identity</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Continuous authentication active. Behavioral patterns match historical baseline with 98.4% confidence.</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-xs">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-[#10b98115] text-[#10b981] text-label-sm font-bold border border-[#10b98130]">
+<span class="material-symbols-outlined text-sm mr-1">check_circle</span> Low Risk
+                            </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm font-bold">
+<span class="material-symbols-outlined text-sm mr-1">history</span> 24h Stability
+                            </span>
+</div>
+</div>
+</div>
+<!-- Right Column Stats -->
+<div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-gutter">
+<!-- Current Risk Level Card -->
+<div class="glass-panel rounded-xl p-md flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1 uppercase tracking-wider">Current Risk</span>
+<div class="flex items-center gap-xs">
+<h3 class="font-headline-md text-headline-md text-[#10b981]">Success</h3>
+<span class="material-symbols-outlined text-[#10b981]">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Zero anomalies detected in last session.</p>
+</div>
+<div class="w-12 h-12 bg-[#10b98120] rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#10b981]">security_update_good</span>
+</div>
+</div>
+<!-- Device Status -->
+<div class="glass-panel rounded-xl p-md flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1 uppercase tracking-wider">Device Status</span>
+<div class="flex items-center gap-xs">
+<h3 class="font-headline-md text-headline-md text-primary">Trusted</h3>
+<span class="material-symbols-outlined text-secondary">devices</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">MacBook Pro M2 - California, USA</p>
+</div>
+<div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">laptop_mac</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Second Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-lg">
+<!-- Login Location Map Snippet -->
+<div class="lg:col-span-1 glass-panel rounded-xl overflow-hidden flex flex-col">
+<div class="p-md border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-label-md text-label-md font-bold text-primary">Active Location</h3>
+<span class="text-xs text-secondary font-bold">LIVE</span>
+</div>
+<div class="flex-1 relative min-h-[200px]">
+<div class="absolute inset-0 bg-surface-container-highest">
+<img class="w-full h-full object-cover opacity-80" data-alt="A stylized minimalist vector map of a metropolitan tech hub with a singular glowing blue location pulse. The design is clean, using a palette of soft grays and deep navy blues for the water and land. A semi-transparent overlay shows data connection lines stretching from the pulse point. The aesthetic is modern fintech with sharp lines." data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApzEsMrIqxfYWWdqO-NGCCPdjHu16Wirh6lnr5gCw3k_uM8jJy0Ot7W1ZVuI0P8TECsTgTDRFqmevCBP2tk3vS8CKWEKI_P2HoEE0Ees8xFwpQpw9Sb3kfVOaFN2HpGrdGnW97cv3Lnne5zQpPgEzX7H0z37xj60ZyK2gui_Uwhv51LXMA58JYwUOJicEGBz1d3x61XKuBAcxVx6ftk8xXRUm2cCR93D1wn53Y6Nk7Co5zm0ljaICv4cTktQYBhXTfIezmEyb_Iv4">
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center">
+<div class="w-3 h-3 rounded-full bg-secondary pulse-active"></div>
+</div>
+</div>
+<div class="absolute bottom-md left-md right-md bg-white/90 backdrop-blur-md p-sm rounded-lg border border-outline-variant/50 shadow-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+<div>
+<p class="text-xs font-bold text-primary leading-none">San Francisco, US</p>
+<p class="text-[10px] text-on-surface-variant">IP: 192.168.1.104</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Trust Signals Feed -->
+<div class="lg:col-span-2 glass-panel rounded-xl flex flex-col">
+<div class="p-md border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-label-md text-label-md font-bold text-primary">Live Trust Signals</h3>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm text-[#10b981]">sync</span>
+<span class="text-xs font-medium text-[#10b981]">Processing...</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto signal-scroll p-md">
+<div class="space-y-sm">
+<!-- Signal Item -->
+<div class="flex items-center justify-between p-sm rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">keyboard</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">Keystroke Dynamics</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Typing rhythm matches authorized profile</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-[#10b981]">0.99 CONF</p>
+<p class="text-[10px] text-on-surface-variant">2s ago</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">mouse</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">Pointer Pathing</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sub-pixel movement velocity verified</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-[#10b981]">0.97 CONF</p>
+<p class="text-[10px] text-on-surface-variant">12s ago</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">router</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">Network Origin</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">ISP latency consistent with history</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-[#10b981]">1.00 CONF</p>
+<p class="text-[10px] text-on-surface-variant">1m ago</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-sm rounded-lg border border-outline-variant/10 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-sm">fingerprint</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary font-bold">Hardware ID</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Secure Enclave token verified</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold text-[#10b981]">1.00 CONF</p>
+<p class="text-[10px] text-on-surface-variant">5m ago</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-sm bg-surface-container-low text-center">
+<button class="text-xs font-bold text-secondary uppercase tracking-widest hover:underline transition-all">View All Metadata</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-md w-full bg-surface-container-lowest border-t border-outline-variant/10">
+<div class="flex items-center gap-xs mb-sm md:mb-0">
+<span class="font-label-md text-label-md font-bold text-primary">Identity360</span>
+<span class="text-on-surface-variant text-body-sm">|</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Continuous Identity Trust Framework</span>
+</div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">API Documentation</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Security Logs</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-secondary transition-colors" href="#">Support Terminal</a>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 duration-150" href="adminoversightdashboard.html"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span><span class="font-label-sm text-label-sm-mobile">Dashboard</span></a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20" href="signalcollectionlayer.html"><span class="material-symbols-outlined">waves</span><span class="font-label-sm text-label-sm-mobile">Signals</span></a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20" href="adpativeauthentication.html"><span class="material-symbols-outlined">devices</span><span class="font-label-sm text-label-sm-mobile">Devices</span></a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20" href="usertrustdashboard.html"><span class="material-symbols-outlined">report_problem</span><span class="font-label-sm text-label-sm-mobile">Alerts</span></a>
+</nav>
+<script>
+        // Micro-interaction for signals feed
+        const signals = document.querySelector('.signal-scroll');
+        let scrollStep = 0;
+        
+        function autoScroll() {
+            if (signals) {
+                scrollStep += 0.5;
+                if (scrollStep >= 40) {
+                    const firstChild = signals.querySelector('div > div:first-child');
+                    if (firstChild) {
+                        signals.querySelector('div').appendChild(firstChild);
+                        scrollStep = 0;
+                        signals.scrollTop = 0;
+                    }
+                } else {
+                    signals.scrollTop = scrollStep;
+                }
+            }
+            requestAnimationFrame(autoScroll);
+        }
+        
+        // requestAnimationFrame(autoScroll); // Uncomment to enable slow auto-scroll simulation
+    </script>
+
+
+
+
+
+
+</body></html>

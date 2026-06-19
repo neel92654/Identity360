@@ -1,0 +1,418 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TrustNexus | Identity360 Admin Security</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e5eeff",
+                    "surface-variant": "#d3e4fe",
+                    "surface-tint": "#49607e",
+                    "on-tertiary-fixed-variant": "#613f1c",
+                    "on-surface": "#0b1c30",
+                    "surface": "#f8f9ff",
+                    "outline-variant": "#c4c6ce",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed": "#ffdcbe",
+                    "on-background": "#0b1c30",
+                    "surface-container-low": "#eff4ff",
+                    "secondary-fixed-dim": "#b4c5ff",
+                    "on-primary-fixed": "#001c37",
+                    "surface-container-high": "#dce9ff",
+                    "on-error": "#ffffff",
+                    "outline": "#74777e",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#eebd90",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#768dad",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#381d00",
+                    "tertiary": "#1a0b00",
+                    "secondary-container": "#316bf3",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#b0c8eb",
+                    "on-secondary-container": "#fefcff",
+                    "primary": "#000f22",
+                    "on-tertiary-fixed": "#2d1600",
+                    "on-secondary-fixed": "#00174b",
+                    "surface-dim": "#cbdbf5",
+                    "primary-fixed": "#d2e4ff",
+                    "on-surface-variant": "#43474d",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary-container": "#ae835a",
+                    "inverse-surface": "#213145",
+                    "primary-container": "#0a2540",
+                    "on-secondary-fixed-variant": "#003ea8",
+                    "secondary": "#0051d5",
+                    "surface-bright": "#f8f9ff",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#b0c8eb",
+                    "background": "#f8f9ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary-fixed": "#dbe1ff",
+                    "on-primary-fixed-variant": "#314865"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "md": "24px",
+                    "base": "4px",
+                    "xl": "64px",
+                    "margin-mobile": "16px",
+                    "sm": "16px",
+                    "gutter": "20px",
+                    "lg": "40px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .pulse-danger {
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(186, 26, 26, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(186, 26, 26, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(186, 26, 26, 0); }
+        }
+        .trust-gradient {
+            background: linear-gradient(90deg, #ba1a1a 0%, #ae835a 50%, #0051d5 100%);
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-24">
+<!-- Navigation Drawer (Desktop) -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 py-md px-sm bg-surface border-r border-outline-variant/20 shadow-sm w-72 z-40">
+<div class="mb-lg px-xs flex items-center gap-xs">
+<img alt="Identity360 Logo" class="w-10 h-10 object-contain" src="identity.png">
+<h1 class="font-headline-md text-headline-md font-black text-primary">TrustNexus</h1>
+</div>
+<div class="flex flex-col gap-xs flex-grow">
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="adminoversightdashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Trust Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">dataset</span>
+<span class="font-label-md text-label-md">Signal Collection</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Behavioral Analytics</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="adpativeauthentication.html">
+<span class="material-symbols-outlined">phonelink_setup</span>
+<span class="font-label-md text-label-md">Device Trust</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="adpativeauthentication.html">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Adaptive Auth</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-md text-label-md">Security Alerts</span>
+</a>
+<a class="flex items-center gap-sm p-xs bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all translate-x-1" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Admin Control</span>
+</a>
+</div>
+<div class="mt-auto p-sm bg-surface-container-low rounded-xl flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">SO</div>
+<div>
+<p class="font-label-md text-label-md text-primary">ID: Trust-Alpha-9</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Vigilant State</p>
+</div>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile lg:px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 lg:ml-72 lg:w-[calc(100%-18rem)]">
+<div class="flex items-center gap-3">
+<img alt="Identity360 Logo" class="w-8 h-8 object-contain" src="identity.png">
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Identity360</h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications_active</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<a href="adminoversightdashboard.html" class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-xs">OP</a>
+</div>
+</header>
+<main class="lg:ml-72 p-margin-mobile lg:p-margin-desktop space-y-sm">
+<!-- Dashboard Header & Vigilant Status -->
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Continuous Identity Trust</p>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Security Dashboard</h2>
+</div>
+<div class="flex items-center gap-2 bg-surface-container px-3 py-1 rounded-full">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface">LIVE MONITORING</span>
+</div>
+</div>
+<!-- Key Metrics Bento Grid -->
+<div class="grid grid-cols-2 gap-base">
+<!-- Total Active Users -->
+<div class="col-span-1 p-sm bg-surface-container-lowest border border-outline-variant/20 rounded-xl">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Users</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-md text-headline-md font-bold">12,842</span>
+<span class="text-[10px] text-green-600 font-bold">+2.4%</span>
+</div>
+</div>
+<!-- Critical Alerts -->
+<div class="col-span-1 p-sm bg-error-container border border-error/10 rounded-xl">
+<p class="font-label-sm text-label-sm text-on-error-container">Critical Alerts</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="font-headline-md text-headline-md font-bold text-on-error-container">04</span>
+<span class="material-symbols-outlined text-sm text-error">warning</span>
+</div>
+</div>
+<!-- High Risk Sessions Pulse -->
+<div class="col-span-2 p-sm bg-primary-container text-on-primary-fixed rounded-xl flex items-center justify-between relative overflow-hidden">
+<div class="z-10">
+<p class="font-label-sm text-label-sm text-on-primary-container">High Risk Sessions</p>
+<h3 class="font-display-lg text-headline-lg font-bold">18</h3>
+</div>
+<div class="pulse-danger w-12 h-12 rounded-full bg-error flex items-center justify-center z-10" style="transform: scale(0.95);">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">security_update_warning</span>
+</div>
+<!-- Abstract visual element -->
+<div class="absolute -right-4 -bottom-4 w-32 h-32 bg-secondary opacity-10 rounded-full blur-2xl"></div>
+</div>
+</div>
+<!-- Trust Distribution Chart (Mockup) -->
+<section class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-sm">
+<h3 class="font-label-md text-label-md text-primary mb-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">pie_chart</span>
+                Trust Distribution
+            </h3>
+<div class="relative h-4 w-full trust-gradient rounded-full mb-xs overflow-hidden">
+<div class="flex h-full">
+<div class="h-full border-r border-white/20" style="width: 15%"></div> <!-- High Risk -->
+<div class="h-full border-r border-white/20" style="width: 25%"></div> <!-- Med Risk -->
+<div class="h-full" style="width: 60%"></div> <!-- Low Risk -->
+</div>
+</div>
+<div class="flex justify-between font-label-sm text-[10px]">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> High (15%)</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span> Med (25%)</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> Low (60%)</div>
+</div>
+</section>
+<!-- Risk Heatmap / Suspicious Locations -->
+<section class="space-y-xs">
+<div class="flex justify-between items-center px-xs">
+<h3 class="font-label-md text-label-md text-primary">Suspicious Locations</h3>
+<button class="text-secondary font-label-sm text-label-sm">View Map</button>
+</div>
+<div class="space-y-base">
+<!-- Location Item 1 -->
+<div class="flex items-center justify-between p-sm bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Moscow, RU</p>
+<p class="font-label-sm text-[11px] text-on-surface-variant">8 concurrent logins • IP: 95.161.x.x</p>
+</div>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 bg-error/10 text-error font-label-sm text-[10px] rounded border border-error/20">EXTREME</span>
+</div>
+</div>
+<!-- Location Item 2 -->
+<div class="flex items-center justify-between p-sm bg-surface-container-low rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 bg-surface-container-highest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">location_on</span>
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Lagos, NG</p>
+<p class="font-label-sm text-[11px] text-on-surface-variant">3 atypical transfers • IP: 102.89.x.x</p>
+</div>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 bg-tertiary-fixed-dim/20 text-on-tertiary-container font-label-sm text-[10px] rounded border border-on-tertiary-container/20">ELEVATED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- High Risk Account List & Actions -->
+<section class="space-y-xs">
+<h3 class="font-label-md text-label-md text-primary px-xs">Identified High-Risk Accounts</h3>
+<div class="space-y-sm">
+<!-- Risk Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
+<div class="p-sm flex justify-between items-start border-b border-outline-variant/10">
+<div class="flex gap-sm">
+<div class="w-12 h-12 rounded-full border-2 border-error/30 p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Close up portrait of a senior bank customer with white hair and professional attire, focused expression, studio lighting with cold blue tones and high detail, 8k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4LwPvFWxWS45zE6jiOPIxPs9kEWyYKOv4r1RbfPg3bCMt-lCG8t4khTKKoJYfYLOXDhFMzHx-Be9lWOkqOjW-hHsYQTWD1KBI87CwTZKpkB9FzhwF_zQRIP0l4nfRsPdh8Ue7AXnHGGwce6cRJN0TkZ86i4iFWVOZvFKPVgRYU7tdSdRQ-_yz6sF78Busa79aRtFcztIwECAL2qNWRAbDjcMmmsbH90XrXC-sLjGN47ldCHZb_2JIw-F3-L6O-AYgPVEXyN4S4QY">
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Albert H. (ID: 9022)</p>
+<p class="font-label-sm text-[11px] text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">bolt</span> 94% Risk Score
+                                </p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="px-sm py-xs bg-surface-container/30">
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase">Recent Behavior</p>
+<p class="font-body-sm text-body-sm text-on-surface py-1">New device login from unauthorized region; attempted limit increase.</p>
+</div>
+<div class="p-sm grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-2 py-2.5 bg-error text-white font-label-md text-label-md rounded hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">lock_person</span>
+                            Freeze Session
+                        </button>
+<button class="flex items-center justify-center gap-2 py-2.5 border border-secondary text-secondary font-label-md text-label-md rounded hover:bg-secondary/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">enhanced_encryption</span>
+                            Force MFA
+                        </button>
+</div>
+</div>
+<!-- Risk Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl overflow-hidden shadow-sm">
+<div class="p-sm flex justify-between items-start border-b border-outline-variant/10">
+<div class="flex gap-sm">
+<div class="w-12 h-12 rounded-full border-2 border-on-tertiary-container/30 p-0.5">
+<img class="w-full h-full rounded-full object-cover" data-alt="Medium shot of a young professional woman in a tech environment, glasses reflecting blue screen light, high contrast lighting with deep navy shadows and bright blue highlights, hyper-realistic, enterprise security aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtTzGhU2njAWBTMuRuKInqP0gqFF5EmxkZ4_fNu4332_ZgRDihlAwJyoSxR7ANcCV2gYPCVN8EzCiBQyfHPsCwwaSKcquxrFrG0WGQCAtwuXX5b9MMReJLMTeRCe9tAblKZLCRV5GpEMfTJgn81HW18YrHB_5R7swbbv0bijd0WuhHJ1PmbiD8lIx8ubMJfT_JSB5OweqBV-wVfHkj6O3o6AhKz3VWhr4tvjjc0Pft6x6C8MleMkFPtN5EMF7EBE9c1sr-iUPOM-U">
+</div>
+<div>
+<p class="font-body-md font-bold text-on-surface">Elena R. (ID: 4412)</p>
+<p class="font-label-sm text-[11px] text-on-tertiary-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">analytics</span> 72% Risk Score
+                                </p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<div class="px-sm py-xs bg-surface-container/30">
+<p class="font-label-sm text-[10px] text-on-surface-variant uppercase">Recent Behavior</p>
+<p class="font-body-sm text-body-sm text-on-surface py-1">Biometric failure (3x) followed by correct PIN. Latency anomaly detected.</p>
+</div>
+<div class="p-sm grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-2 py-2.5 bg-error text-white font-label-md text-label-md rounded hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">lock_person</span>
+                            Freeze Session
+                        </button>
+<button class="flex items-center justify-center gap-2 py-2.5 border border-secondary text-secondary font-label-md text-label-md rounded hover:bg-secondary/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">enhanced_encryption</span>
+                            Force MFA
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 shadow-lg"><a href="adminoversightdashboard.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-[10px]">Dashboard</span>
+</a>
+<a href="signalcollectionlayer.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1">
+<span class="material-symbols-outlined">waves</span>
+<span class="font-label-sm text-[10px]">Signals</span>
+</a>
+<a href="adpativeauthentication.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1">
+<span class="material-symbols-outlined">devices</span>
+<span class="font-label-sm text-[10px]">Devices</span>
+</a>
+<a href="usertrustdashboard.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 duration-150">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">report_problem</span>
+<span class="font-label-sm text-[10px]">Alerts</span>
+</a></nav>
+<!-- Footer (Brief for Mobile) -->
+<footer class="lg:ml-72 flex flex-col justify-center items-center px-margin-mobile py-md w-full border-t border-outline-variant/10 text-on-surface-variant opacity-60">
+<p class="font-body-sm text-[10px] text-center">© 2024 Continuous Identity Trust Framework | Security Grade 1-A</p>
+</footer>
+<script>
+        // Micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const originalText = this.innerHTML;
+                if(this.classList.contains('bg-error')) {
+                    this.innerHTML = '<span class="material-symbols-outlined animate-spin text-sm">refresh</span> Processing...';
+                    setTimeout(() => {
+                        this.innerHTML = '<span class="material-symbols-outlined text-sm">check_circle</span> Locked';
+                        this.classList.replace('bg-error', 'bg-on-surface');
+                    }, 1200);
+                }
+            });
+        });
+
+        // Atmospheric Pulsing for high risk
+        const dangerPulse = document.querySelector('.pulse-danger');
+        let scale = 1;
+        let growing = true;
+        
+        setInterval(() => {
+            if(growing) {
+                scale += 0.005;
+                if(scale >= 1.05) growing = false;
+            } else {
+                scale -= 0.005;
+                if(scale <= 0.95) growing = true;
+            }
+            dangerPulse.style.transform = `scale(${scale})`;
+        }, 50);
+    </script>
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TrustNexus | Adaptive Auth &amp; Security Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e5eeff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "on-surface": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c4c6ce",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-background": "#0b1c30",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "outline": "#74777e",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#768dad",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#381d00",
+                        "tertiary": "#1a0b00",
+                        "secondary-container": "#316bf3",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-secondary-container": "#fefcff",
+                        "primary": "#000f22",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#d2e4ff",
+                        "on-surface-variant": "#43474d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#ae835a",
+                        "inverse-surface": "#213145",
+                        "primary-container": "#0a2540",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "secondary": "#0051d5",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b0c8eb",
+                        "background": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#dbe1ff",
+                        "on-primary-fixed-variant": "#314865"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "md": "24px",
+                        "base": "4px",
+                        "xl": "64px",
+                        "margin-mobile": "16px",
+                        "sm": "16px",
+                        "gutter": "20px",
+                        "lg": "40px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .identity-thread-line {
+            position: relative;
+        }
+        .identity-thread-line::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E2E8F0;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen">
+<!-- Navigation Drawer (Desktop) -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 py-md px-sm bg-surface border-r border-outline-variant/20 shadow-sm w-72 z-40">
+<div class="mb-lg px-xs flex items-center gap-xs">
+<img alt="Identity360 Logo" class="w-10 h-10 object-contain" src="identity.png">
+<h1 class="font-headline-md text-headline-md font-black text-primary">TrustNexus</h1>
+</div>
+<div class="flex flex-col gap-xs flex-grow">
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="adminoversightdashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Trust Dashboard</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">dataset</span>
+<span class="font-label-md text-label-md">Signal Collection</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Behavioral Analytics</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="adpativeauthentication.html">
+<span class="material-symbols-outlined">phonelink_setup</span>
+<span class="font-label-md text-label-md">Device Trust</span>
+</a>
+<a class="flex items-center gap-sm p-xs bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all translate-x-1" href="adpativeauthentication.html">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Adaptive Auth</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="font-label-md text-label-md">Security Alerts</span>
+</a>
+<a class="flex items-center gap-sm p-xs text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Admin Control</span>
+</a>
+</div>
+<div class="mt-auto p-sm bg-surface-container-low rounded-xl flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">SO</div>
+<div>
+<p class="font-label-md text-label-md text-primary">ID: Trust-Alpha-9</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Vigilant State</p>
+</div>
+</div>
+</nav>
+<!-- Top App Bar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-mobile lg:px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 lg:ml-72 lg:w-[calc(100%-18rem)]">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">shield_lock</span>
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Adaptive Authentication</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex items-center gap-xs px-sm py-1 bg-surface-container rounded-full">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-tighter">Live Monitoring</span>
+</div>
+<div class="w-8 h-8 rounded-full border border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a high-tech corporate security administrator in a minimalist office setting. Soft focused background with hints of blue glowing monitors. The individual looks professional and focused, representing trust and enterprise-grade vigilance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiXNIxlbaN1dnpM6OmKwwOBYHvy2Z_YaIUW5V2oNzMaK-O9L-2NeHmkrhPIeLnBeXIh78JJA34UFKkb4mzMZCESfRxjush5QtFaXTr0IeGKy57JcUmpkwF01pWt9Ai9GDA-WDDWB_hq6OlxpS7FWungrIf9ROhXYZJCu_I90drtuJVVIpfwMLGQJhx_1QIjScrQiRYyQlbm06lX40ZzH8oobqfhMzJ81X3mUowGOL4OH03itI4sYAUHAdyy_mIKoKaXEx10Mf9DdE">
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="lg:ml-72 p-margin-mobile lg:p-margin-desktop pb-32">
+<!-- Hero Section: Adaptive Auth Status -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-lg">
+<div class="lg:col-span-8 glass-card border border-outline-variant/30 rounded-xl p-md shadow-sm overflow-hidden relative">
+<div class="absolute top-0 right-0 p-md opacity-10">
+<span class="material-symbols-outlined text-[120px]">verified_user</span>
+</div>
+<div class="relative z-10">
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-xs tracking-widest">Current Session</h2>
+<div class="flex items-end gap-md mb-md">
+<div class="text-[64px] font-bold leading-none text-primary">Allow Access</div>
+<div class="bg-secondary/10 text-secondary px-sm py-1 rounded-full flex items-center gap-xs mb-2">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase">Low Risk</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm">
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/20">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Trust Score</p>
+<p class="font-label-md text-label-md text-primary">98/100</p>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/20">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Location</p>
+<p class="font-label-md text-label-md text-primary">Zurich, CH</p>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/20">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Device</p>
+<p class="font-label-md text-label-md text-primary">MBP M3 Max</p>
+</div>
+<div class="p-sm bg-surface-container-low rounded-lg border border-outline-variant/20">
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mb-1">Auth Type</p>
+<p class="font-label-md text-label-md text-primary">Continuous</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Risk Escalation Simulator (Side Card) -->
+<div class="lg:col-span-4 glass-card border border-outline-variant/30 rounded-xl p-md shadow-sm flex flex-col justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md mb-xs">Risk Policies</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-md">Adaptive escalation logic automatically adjusts authentication friction based on real-time signal telemetry.</p>
+</div>
+<div class="space-y-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm">Risk Thresholds</span>
+<span class="material-symbols-outlined text-sm">info</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full flex overflow-hidden">
+<div class="h-full bg-secondary" style="width: 60%;"></div>
+<div class="h-full bg-tertiary-fixed-dim" style="width: 25%;"></div>
+<div class="h-full bg-error" style="width: 15%;"></div>
+</div>
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase">
+<span class="">Low (Pass)</span>
+<span class="">Med (MFA)</span>
+<span class="">High (Block)</span>
+</div>
+</div>
+<div class="mt-md p-sm bg-primary text-on-primary rounded-lg flex items-center justify-between cursor-pointer hover:bg-primary/90 transition-colors">
+<span class="font-label-md text-label-md">Simulate Threat</span>
+<span class="material-symbols-outlined">bolt</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Risk Insights -->
+<section class="mb-lg">
+<h3 class="font-headline-md text-headline-md mb-md">Threat Vector Intelligence</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="glass-card border border-outline-variant/30 rounded-xl p-md">
+<div class="w-10 h-10 rounded bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-sm">
+<span class="material-symbols-outlined">fingerprint</span>
+</div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Behavioral Biometrics</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Typing cadence and mouse velocity match authorized profile patterns.</p>
+</div>
+<div class="glass-card border border-outline-variant/30 rounded-xl p-md">
+<div class="w-10 h-10 rounded bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed mb-sm">
+<span class="material-symbols-outlined">public</span>
+</div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Network Integrity</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Connecting via enterprise VPN from a known corporate IP range.</p>
+</div>
+<div class="glass-card border border-outline-variant/30 rounded-xl p-md">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-sm">
+<span class="material-symbols-outlined">watch</span>
+</div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Time Analysis</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Login attempts occur within established working hours (UTC+1).</p>
+</div>
+</div>
+</section>
+<!-- Security Alerts Feed -->
+<section>
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md">Security Alerts</h3>
+<div class="flex gap-xs">
+<button class="px-sm py-1 border border-outline-variant/30 rounded-lg text-label-sm font-label-sm hover:bg-surface-container transition-colors">Clear All</button>
+<button class="px-sm py-1 border border-outline-variant/30 rounded-lg text-label-sm font-label-sm hover:bg-surface-container transition-colors">Export Logs</button>
+</div>
+</div>
+<div class="identity-thread-line space-y-md">
+<!-- Alert 1: Danger -->
+<div class="relative pl-14 transition-all hover:translate-x-1">
+<div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-error border-4 border-surface z-10"></div>
+<div class="glass-card border border-error/20 rounded-xl p-md flex flex-col md:flex-row md:items-center justify-between gap-md border-l-4 border-l-error">
+<div class="flex-grow">
+<div class="flex items-center gap-sm mb-1">
+<span class="font-label-sm text-label-sm text-error font-bold uppercase">Danger</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">14:32:05 — Today</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Suspicious Login</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm max-w-2xl">Unauthorized login attempt detected from North Korea (AS131279). Multi-factor challenge was failed 3 times.</p>
+</div>
+<div class="flex shrink-0">
+<button class="bg-primary text-on-primary px-md py-sm rounded text-label-md font-label-md hover:opacity-90 transition-opacity">Block IP &amp; User</button>
+</div>
+</div>
+</div>
+<!-- Alert 2: Warning -->
+<div class="relative pl-14 transition-all hover:translate-x-1">
+<div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-tertiary-fixed-dim border-4 border-surface z-10"></div>
+<div class="glass-card border border-outline-variant/30 rounded-xl p-md flex flex-col md:flex-row md:items-center justify-between gap-md border-l-4 border-l-tertiary-fixed-dim">
+<div class="flex-grow">
+<div class="flex items-center gap-sm mb-1">
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-bold uppercase">Warning</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">12:15:22 — Today</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">New Device Detected</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm max-w-2xl">A new iPhone 15 Pro (OS 17.4) was registered for the user. Device signature doesn't match historical hardware IDs.</p>
+</div>
+<div class="flex shrink-0">
+<button class="border border-outline text-primary px-md py-sm rounded text-label-md font-label-md hover:bg-surface-container-high transition-colors">Verify Device</button>
+</div>
+</div>
+</div>
+<!-- Alert 3: Info/Anomaly -->
+<div class="relative pl-14 transition-all hover:translate-x-1">
+<div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-secondary-fixed border-4 border-surface z-10"></div>
+<div class="glass-card border border-outline-variant/30 rounded-xl p-md flex flex-col md:flex-row md:items-center justify-between gap-md border-l-4 border-l-secondary">
+<div class="flex-grow">
+<div class="flex items-center gap-sm mb-1">
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase">Anomaly</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">09:44:10 — Today</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Behavioral Anomaly</h4>
+<p class="text-on-surface-variant font-body-sm text-body-sm max-w-2xl">Typing speed increased by 40% over historical baseline. Potential keyboard macro or shared account session.</p>
+</div>
+<div class="flex shrink-0">
+<button class="border border-outline text-primary px-md py-sm rounded text-label-md font-label-md hover:bg-surface-container-high transition-colors">Inspect Logs</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1" href="adminoversightdashboard.html">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1" href="signalcollectionlayer.html">
+<span class="material-symbols-outlined">waves</span>
+<span class="font-label-sm text-label-sm">Signals</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 duration-150" href="adpativeauthentication.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-sm text-label-sm">Devices</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1" href="usertrustdashboard.html">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="font-label-sm text-label-sm">Alerts</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="lg:ml-72 flex flex-col md:flex-row justify-between items-center px-margin-desktop py-md w-full border-t border-outline-variant/10 bg-surface-container-lowest">
+<div class="mb-sm md:mb-0">
+<span class="font-label-md text-label-md font-bold text-primary">Identity360</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-xs">© 2024 Continuous Identity Trust Framework</span>
+</div>
+<div class="flex gap-md">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">API Documentation</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Security Logs</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Support Terminal</a>
+</div>
+</footer>
+<script>
+        // Micro-interaction for Simulation button
+        const simBtn = document.querySelector('.sim-btn');
+        if(simBtn) {
+            simBtn.addEventListener('mousedown', () => {
+                simBtn.style.transform = 'scale(0.98)';
+            });
+            simBtn.addEventListener('mouseup', () => {
+                simBtn.style.transform = 'scale(1)';
+            });
+        }
+
+        // Logic for "Recommended Action" buttons (simulated)
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if(this.textContent.includes('Block') || this.textContent.includes('Verify')) {
+                    const originalText = this.textContent;
+                    this.textContent = 'Processing...';
+                    this.disabled = true;
+                    this.classList.add('opacity-50');
+                    
+                    setTimeout(() => {
+                        this.textContent = 'Action Logged';
+                        this.classList.replace('bg-primary', 'bg-secondary');
+                        this.classList.replace('text-on-primary', 'text-white');
+                    }, 1500);
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+</body></html>

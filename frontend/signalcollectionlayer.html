@@ -1,0 +1,492 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head></head><body class="bg-surface text-on-surface font-body-md min-h-screen"><svg class="inline-defs-container" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"></svg>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TrustNexus | Signal Collection &amp; Behavioral Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e5eeff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-tint": "#49607e",
+                        "on-tertiary-fixed-variant": "#613f1c",
+                        "on-surface": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c4c6ce",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffdcbe",
+                        "on-background": "#0b1c30",
+                        "surface-container-low": "#eff4ff",
+                        "secondary-fixed-dim": "#b4c5ff",
+                        "on-primary-fixed": "#001c37",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "outline": "#74777e",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#eebd90",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#768dad",
+                        "error": "#ba1a1a",
+                        "tertiary-container": "#381d00",
+                        "tertiary": "#1a0b00",
+                        "secondary-container": "#316bf3",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#b0c8eb",
+                        "on-secondary-container": "#fefcff",
+                        "primary": "#000f22",
+                        "on-tertiary-fixed": "#2d1600",
+                        "on-secondary-fixed": "#00174b",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#d2e4ff",
+                        "on-surface-variant": "#43474d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-container": "#ae835a",
+                        "inverse-surface": "#213145",
+                        "primary-container": "#0a2540",
+                        "on-secondary-fixed-variant": "#003ea8",
+                        "secondary": "#0051d5",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#b0c8eb",
+                        "background": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed": "#dbe1ff",
+                        "on-primary-fixed-variant": "#314865"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "md": "24px",
+                        "base": "4px",
+                        "xl": "64px",
+                        "margin-mobile": "16px",
+                        "sm": "16px",
+                        "gutter": "20px",
+                        "lg": "40px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .verified-pulse {
+            position: relative;
+        }
+        .verified-pulse::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            top: 0;
+            right: -4px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .confidence-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s forwards ease-in-out;
+        }
+        @keyframes draw {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+
+
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30">
+<div class="flex items-center gap-sm">
+<img alt="Identity360 Logo" class="h-10 w-10 object-contain" src="identity.png">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Identity360<br></span>
+</div>
+<div class="hidden md:flex gap-lg">
+<nav class="flex gap-md items-center h-full">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label-md text-label-md" href="adminoversightdashboard.html">Trust Dashboard</a>
+<a class="text-secondary font-bold border-b-2 border-secondary font-label-md text-label-md" href="signalcollectionlayer.html">Signal Collection</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label-md text-label-md" href="signalcollectionlayer.html">Behavioral Analytics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150 font-label-md text-label-md" href="usertrustdashboard.html">Security Alerts</a>
+</nav>
+</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline">search</span>
+<div class="h-8 w-8 rounded-full bg-secondary-container flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-on-secondary-container text-sm">person</span>
+</div>
+</div>
+</header>
+<!-- NavigationDrawer (Desktop Only) -->
+<aside class="hidden lg:flex flex-col h-screen fixed left-0 top-0 py-md px-sm w-72 bg-surface border-r border-outline-variant/20 shadow-sm z-40 mt-16">
+<div class="mb-lg px-sm">
+<div class="flex items-center gap-xs mb-xs">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+</div>
+<div>
+<h3 class="font-headline-md text-label-md font-bold">ID: Trust-Alpha-9</h3>
+<p class="font-body-sm text-label-sm text-outline">Vigilant State</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-xs">
+<a href="adminoversightdashboard.html" class="px-sm py-xs hover:bg-surface-container-high transition-all rounded-lg cursor-pointer flex items-center gap-sm text-on-surface-variant"><span class="material-symbols-outlined">dashboard</span><span class="font-label-md text-label-md">Trust Dashboard</span></a>
+<div class="px-sm py-xs bg-secondary-container text-on-secondary-container rounded-lg font-bold translate-x-1 duration-200 flex items-center gap-sm">
+<span class="material-symbols-outlined">dataset</span>
+<span class="font-label-md text-label-md">Signal Collection</span>
+</div>
+<a href="signalcollectionlayer.html" class="px-sm py-xs hover:bg-surface-container-high transition-all rounded-lg cursor-pointer flex items-center gap-sm text-on-surface-variant"><span class="material-symbols-outlined">analytics</span><span class="font-label-md text-label-md">Behavioral Analytics</span></a>
+<a href="adpativeauthentication.html" class="px-sm py-xs hover:bg-surface-container-high transition-all rounded-lg cursor-pointer flex items-center gap-sm text-on-surface-variant"><span class="material-symbols-outlined">phonelink_setup</span><span class="font-label-md text-label-md">Device Trust</span></a>
+<a href="adpativeauthentication.html" class="px-sm py-xs hover:bg-surface-container-high transition-all rounded-lg cursor-pointer flex items-center gap-sm text-on-surface-variant"><span class="material-symbols-outlined">security</span><span class="font-label-md text-label-md">Adaptive Auth</span></a>
+<a href="usertrustdashboard.html" class="px-sm py-xs hover:bg-surface-container-high transition-all rounded-lg cursor-pointer flex items-center gap-sm text-on-surface-variant"><span class="material-symbols-outlined">notifications_active</span><span class="font-label-md text-label-md">Security Alerts</span></a>
+<a href="usertrustdashboard.html" class="px-sm py-xs hover:bg-surface-container-high transition-all rounded-lg cursor-pointer flex items-center gap-sm text-on-surface-variant"><span class="material-symbols-outlined">admin_panel_settings</span><span class="font-label-md text-label-md">Admin Control</span></a>
+</nav>
+</aside>
+<main class="lg:ml-72 p-margin-mobile md:p-margin-desktop pb-32">
+<!-- Header Section -->
+<section class="mb-lg">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary">Signal Collection Layer</h1>
+<p class="font-body-md text-on-surface-variant">Continuous multi-factor telemetry processing in real-time.</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container rounded-full px-md py-xs border border-outline-variant/30">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-ping"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary">Live Monitoring Active</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- 1. Device Signals -->
+<div class="md:col-span-4 glass-panel p-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">devices</span>
+<h2 class="font-headline-md text-label-md font-bold uppercase tracking-tight">Device Signals</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-secondary-container bg-secondary-container px-2 py-0.5 rounded">High Trust</span>
+</div>
+<div class="space-y-sm">
+<div class="p-sm bg-surface rounded border border-outline-variant/10 flex justify-between items-center group hover:border-secondary transition-colors">
+<div>
+<p class="font-label-sm text-label-sm text-outline">Device ID</p>
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 0.638358s;">NX-7742-ALPHA</p>
+</div>
+<span class="material-symbols-outlined text-green-500" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="p-sm bg-surface rounded border border-outline-variant/10 flex justify-between items-center">
+<div>
+<p class="font-label-sm text-label-sm text-outline">Browser / Engine</p>
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 0.694326s;">Chrome 122.0.0 (WebKit)</p>
+</div>
+<span class="material-symbols-outlined text-green-500" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="p-sm bg-surface rounded border border-outline-variant/10 flex justify-between items-center">
+<div>
+<p class="font-label-sm text-label-sm text-outline">Operating System</p>
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 0.771332s;">macOS 14.3.1 (Sonoma)</p>
+</div>
+<span class="material-symbols-outlined text-green-500" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="p-sm bg-surface rounded border border-outline-variant/10 flex justify-between items-center">
+<div>
+<p class="font-label-sm text-label-sm text-outline">Reputation Score</p>
+<div class="flex items-center gap-xs">
+<div class="w-16 h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-green-500 h-full w-[98%]"></div>
+</div>
+<span class="font-label-sm text-label-sm font-bold text-green-600">0.99</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-green-500" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+</div>
+</div>
+<!-- Main Confidence Chart Area -->
+<div class="md:col-span-8 glass-panel p-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col">
+<div class="flex items-center justify-between mb-md">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Identity Confidence Score</h2>
+<p class="font-body-sm text-on-surface-variant">Real-time session consistency analytics</p>
+</div>
+<div class="text-right">
+<span class="font-display-lg text-display-lg font-black text-secondary">98<span class="text-headline-md font-bold">%</span></span>
+<p class="font-label-sm text-label-sm text-green-600 uppercase font-bold">Stable State</p>
+</div>
+</div>
+<div class="relative flex-grow flex items-end h-48 md:h-64 mt-4">
+<svg class="w-full h-full" viewBox="0 0 800 200">
+<defs>
+<linearGradient id="chartGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:rgba(0, 81, 213, 0.2);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:rgba(0, 81, 213, 0);stop-opacity:1"></stop>
+</linearGradient>
+</defs>
+<path d="M0,150 L50,140 L100,160 L150,145 L200,130 L250,135 L300,120 L350,100 L400,110 L450,90 L500,85 L550,70 L600,75 L650,60 L700,65 L750,55 L800,50 L800,200 L0,200 Z" fill="url(#chartGradient)"></path>
+<path class="confidence-path" d="M0,150 L50,140 L100,160 L150,145 L200,130 L250,135 L300,120 L350,100 L400,110 L450,90 L500,85 L550,70 L600,75 L650,60 L700,65 L750,55 L800,50" fill="none" stroke="#0051d5" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" style="animation: 3s ease-in-out 0s 1 normal forwards running draw;"></path>
+<!-- Grid Lines -->
+<line stroke="#E2E8F0" stroke-dasharray="4" x1="0" x2="800" y1="50" y2="50"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4" x1="0" x2="800" y1="100" y2="100"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4" x1="0" x2="800" y1="150" y2="150"></line>
+</svg>
+<div class="absolute bottom-0 left-0 w-full flex justify-between px-xs pt-xs border-t border-outline-variant/20">
+<span class="font-label-sm text-label-sm text-outline">Login</span>
+<span class="font-label-sm text-label-sm text-outline">10m</span>
+<span class="font-label-sm text-label-sm text-outline">20m</span>
+<span class="font-label-sm text-label-sm text-outline">30m</span>
+<span class="font-label-sm text-label-sm text-outline">Active Now</span>
+</div>
+</div>
+</div>
+<!-- 2. Behavioral Signals -->
+<div class="md:col-span-6 glass-panel p-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">waves</span>
+<h2 class="font-headline-md text-label-md font-bold uppercase tracking-tight">Behavioral Signals</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-sm">
+<div class="p-sm bg-surface rounded border border-outline-variant/10 hover:bg-surface-container-low transition-colors cursor-default">
+<p class="font-label-sm text-label-sm text-outline">Login Time Profile</p>
+<div class="flex justify-between items-end mt-xs">
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 0.414371s;">09:42 AM (Expected)</p>
+<span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+</div>
+</div>
+<div class="p-sm bg-surface rounded border border-outline-variant/10 hover:bg-surface-container-low transition-colors cursor-default">
+<p class="font-label-sm text-label-sm text-outline">Session Duration</p>
+<div class="flex justify-between items-end mt-xs">
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 1.92408s;">34m 12s</p>
+<span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>
+</div>
+</div>
+<div class="p-sm bg-surface rounded border border-outline-variant/10 col-span-1 sm:col-span-2">
+<p class="font-label-sm text-label-sm text-outline mb-xs">Navigation Velocity &amp; Pattern</p>
+<div class="flex items-center gap-md">
+<div class="flex-grow space-y-xs">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="">Cadence Matching</span>
+<span class="text-secondary font-bold">94%</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[94%]"></div>
+</div>
+</div>
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-secondary-container">
+<span class="material-symbols-outlined text-on-secondary-container">gesture</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Contextual Signals -->
+<div class="md:col-span-6 glass-panel p-md rounded-xl shadow-sm border border-outline-variant/20 flex flex-col gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">share_location</span>
+<h2 class="font-headline-md text-label-md font-bold uppercase tracking-tight">Contextual Signals</h2>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant/10">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">location_on</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline">Last Known Location</p>
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 0.97485s;">Zurich, Switzerland</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-outline">Confidence</p>
+<p class="font-label-md text-label-md font-bold text-green-600">High</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant/10">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">lan</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline">IP Address / Network</p>
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 1.76362s;">192.168.1.1 (Corporate VPN)</p>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-outline">ASN Type</p>
+<p class="font-label-md text-label-md font-bold text-secondary">Verified</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-sm bg-surface rounded border border-outline-variant/10">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">history</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-sm text-label-sm text-outline">Historical Matching</p>
+<p class="font-label-md text-label-md font-bold text-primary verified-pulse inline-block" style="animation-delay: 0.565442s;">Consistent with 90-day history</p>
+</div>
+<span class="material-symbols-outlined text-green-500">done_all</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Timeline -->
+<section class="mt-lg">
+<h3 class="font-headline-md text-headline-md font-bold text-primary mb-md">Identity Thread Analytics</h3>
+<div class="glass-panel rounded-xl overflow-hidden border border-outline-variant/20">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high">
+<tr>
+<th class="p-md font-label-md text-label-md uppercase text-outline">Timestamp</th>
+<th class="p-md font-label-md text-label-md uppercase text-outline">Signal Source</th>
+<th class="p-md font-label-md text-label-md uppercase text-outline">Event Descriptor</th>
+<th class="p-md font-label-md text-label-md uppercase text-outline">Status</th>
+<th class="p-md font-label-md text-label-md uppercase text-outline">Confidence Δ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-variant/20 transition-colors">
+<td class="p-md font-label-md text-label-md">14:22:01.04</td>
+<td class="p-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">mouse</span>
+<span class="font-label-md text-label-md">Behavioral</span>
+</td>
+<td class="p-md font-body-sm text-body-sm">Navigation to 'Security Logs' detected</td>
+<td class="p-md">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-green-100 text-green-700">Verified</span>
+</td>
+<td class="p-md font-label-md text-label-md text-green-600">+0.002</td>
+</tr>
+<tr class="hover:bg-surface-variant/20 transition-colors">
+<td class="p-md font-label-md text-label-md">14:21:45.88</td>
+<td class="p-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">public</span>
+<span class="font-label-md text-label-md">Contextual</span>
+</td>
+<td class="p-md font-body-sm text-body-sm">Network stability check: Low Jitter</td>
+<td class="p-md">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-green-100 text-green-700">Verified</span>
+</td>
+<td class="p-md font-label-md text-label-md text-green-600">+0.001</td>
+</tr>
+<tr class="hover:bg-surface-variant/20 transition-colors">
+<td class="p-md font-label-md text-label-md">14:19:30.12</td>
+<td class="p-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">smartphone</span>
+<span class="font-label-md text-label-md">Device</span>
+</td>
+<td class="p-md font-body-sm text-body-sm">Battery level &amp; thermal profile check</td>
+<td class="p-md">
+<span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-green-100 text-green-700">Verified</span>
+</td>
+<td class="p-md font-label-md text-label-md text-outline">0.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface/90 backdrop-blur-md border-t border-outline-variant/30 shadow-lg">
+<a href="adminoversightdashboard.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-label-sm text-label-sm">Dashboard</span>
+</a>
+<a href="signalcollectionlayer.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 duration-150">
+<span class="material-symbols-outlined">waves</span>
+<span class="font-label-sm text-label-sm">Signals</span>
+</a>
+<a href="adpativeauthentication.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1">
+<span class="material-symbols-outlined">devices</span>
+<span class="font-label-sm text-label-sm">Devices</span>
+</a>
+<a href="usertrustdashboard.html" class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-variant/20 transition-all rounded-lg p-1">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="font-label-sm text-label-sm">Alerts</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="lg:ml-72 flex flex-col md:flex-row justify-between items-center px-margin-desktop py-md w-full bg-surface-container-lowest border-t border-outline-variant/10">
+<div class="flex items-center gap-sm mb-sm md:mb-0">
+<span class="font-label-md text-label-md font-bold text-primary">Identity360</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Continuous Identity Trust Framework | Enterprise Security Grade</p>
+</div>
+<div class="flex gap-md">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors underline" href="#">API Documentation</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors underline" href="#">Security Logs</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-secondary transition-colors underline" href="#">Support Terminal</a>
+</div>
+</footer>
+<script>
+        // Micro-interaction: Randomize pulse frequency slightly for natural feel
+        document.querySelectorAll('.verified-pulse').forEach(el => {
+            const delay = Math.random() * 2;
+            el.style.animationDelay = `${delay}s`;
+        });
+
+        // Simple observer for chart animation restart
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const path = entry.target.querySelector('.confidence-path');
+                    if (path) {
+                        path.style.animation = 'none';
+                        path.offsetHeight; // trigger reflow
+                        path.style.animation = 'draw 3s forwards ease-in-out';
+                    }
+                }
+            });
+        });
+        observer.observe(document.querySelector('.md\\:col-span-8'));
+    </script>
+
+
+
+
+
+
+</body></html>
